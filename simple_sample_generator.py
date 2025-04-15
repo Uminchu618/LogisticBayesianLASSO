@@ -45,7 +45,7 @@ def gibbs_sampler_logistic_pg(X, y, n_iter=2000, lambda1=1.0):
 
 def run_simulation(seed):
     # 各プロセスでシードを固定して再現性を確保
-    np.random.seed(1)
+    np.random.seed(seed)
     # 真のパラメータ
     beta_true = np.array([1.0, -2.0, 0.1])
     X, y = generate_logistic_data(n=500, p=3, beta_true=beta_true)
@@ -75,7 +75,7 @@ def run_simulation_lambda(args):
 def run_lasso_path_simulation():
     # 複数の lambda1 (Lasso の正則化パラメータ) についてシミュレーションを実行し、各回帰係数の推定値を集計
     lambda_grid = np.logspace(-2, 2, num=10)
-    n_runs = 10  # 各 lambda1 に対するシミュレーション回数
+    n_runs = 100  # 各 lambda1 に対するシミュレーション回数
     results = []
     for lam in lambda_grid:
         with concurrent.futures.ProcessPoolExecutor() as executor:
